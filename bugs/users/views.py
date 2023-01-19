@@ -41,12 +41,13 @@ def users(request):
             data=user
         )
         serializer.is_valid(raise_exception=True)
+        user_list.append(serializer.data)
     return Response(user_list, status=status.HTTP_200_OK)
 
 
-@api_view(['POST'])
+@api_view(['POST', 'GET'])
 def userCreate(request):
-    print(request.POST)
+    print(request)
     if request.META['HTTP_BEARER'] == bugs.users.credentials.loremu:
         serializer = UsersSerializer(
             data=request.data
